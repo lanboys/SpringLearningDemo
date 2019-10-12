@@ -2,21 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-					    http://www.springframework.org/schema/aop
-	                    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/spring-context-3.0.xsd"
-       default-lazy-init="false">
+						http://www.springframework.org/schema/context/spring-context.xsd">
 
     <description>Spring总配置文件</description>
 
-<!--    &lt;!&ndash;    启用注解    &ndash;&gt;-->
-<!--    <context:annotation-config/>-->
-<!--    &lt;!&ndash;    设置扫描的包    &ndash;&gt;-->
-<!--    <context:component-scan base-package="com.bing.lan"/>-->
+    <!--    &lt;!&ndash;    启用注解    &ndash;&gt;-->
+    <!--    <context:annotation-config/>-->
+    <!--    &lt;!&ndash;    设置扫描的包    &ndash;&gt;-->
+    <!--    <context:component-scan base-package="com.bing.lan"/>-->
 
-    <bean name="helloWorld" class="com.bing.lan.spring.HelloWorld"/>
+    <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"/>
 </beans>
