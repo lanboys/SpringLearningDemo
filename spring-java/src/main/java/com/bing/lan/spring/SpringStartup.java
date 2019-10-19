@@ -2,8 +2,11 @@ package com.bing.lan.spring;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,19 +23,21 @@ public class SpringStartup {
     ApplicationContext applicationContext;
 
     public static void main(String[] args) {
-        //Resource resource = new ClassPathResource("applicationContext.xml");
-        //DefaultListableBeanFactory beanFactory = new XmlBeanFactory(resource);
-        //HelloWorld helloWorld = (HelloWorld) beanFactory.getBean("helloWorld");
-        //System.out.println("main(): " + helloWorld);
+        Resource resource = new ClassPathResource("applicationContext.xml");
+        DefaultListableBeanFactory beanFactory = new XmlBeanFactory(resource);
+        HelloWorld helloWorld = (HelloWorld) beanFactory.getBean("helloWorld");
+        System.out.println("main(): " + helloWorld);
+        HelloWorld helloWorld1 = (HelloWorld) beanFactory.getBean("helloWorld");
+        System.out.println("main(): " + helloWorld1);
 
         // 手动启动spring容器
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-        HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
-        System.out.println("main(): " + helloWorld);
-
-        // 要启用注解才生效
-        SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
-        System.out.println("main(): " + springStartup);
+        //ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        //
+        //HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
+        //System.out.println("main(): " + helloWorld);
+        //
+        //// 要启用注解才生效
+        //SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
+        //System.out.println("main(): " + springStartup);
     }
 }
