@@ -25,13 +25,22 @@ public class SpringStartup {
     public static void main(String[] args) {
         Resource resource = new ClassPathResource("applicationContext.xml");
         DefaultListableBeanFactory beanFactory = new XmlBeanFactory(resource);
+
+        //String[] postProcessorNames = beanFactory.getBeanNamesForType(BeanPostProcessor.class, true, false);
+        //
+        //for (String postProcessorName : postProcessorNames) {
+        //    Object bean = beanFactory.getBean(postProcessorName);
+        //    beanFactory.addBeanPostProcessor((BeanPostProcessor) bean);
+        //}
+        beanFactory.addBeanPostProcessor(new HelloBeanPostProcessor());
+
         HelloWorld helloWorld = (HelloWorld) beanFactory.getBean("helloWorld");
         System.out.println("main(): " + helloWorld);
         HelloWorld helloWorld1 = (HelloWorld) beanFactory.getBean("helloWorld");
         System.out.println("main(): " + helloWorld1);
         HelloWorld helloWorld2 = (HelloWorld) beanFactory.getBean("helloWorld-id-2");
         System.out.println("main(): " + helloWorld2);
-        Object parent =  beanFactory.getBean("parent-id");
+        Object parent = beanFactory.getBean("parent-id");
         System.out.println("main(): " + parent);
 
         // 手动启动spring容器

@@ -1,9 +1,12 @@
 package com.bing.lan.spring;
 
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
 /**
  * Created by 蓝兵 on 2019/10/11.
  */
-public class HelloWorld {
+public class HelloWorld implements InitializingBean, DisposableBean {
 
     private String hello;
     private String world;
@@ -46,5 +49,13 @@ public class HelloWorld {
                 "hello='" + hello + '\'' +
                 ", world='" + world + '\'' +
                 '}';
+    }
+
+    public void destroy() throws Exception {
+        System.out.println("destroy(): ");
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("afterPropertiesSet(): ");
     }
 }

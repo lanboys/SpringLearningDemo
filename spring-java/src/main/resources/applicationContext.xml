@@ -30,4 +30,7 @@
         <property name="world" value="world-value-2"/>
         <meta key="lan-2" value="bing-2"/>
     </bean>
+
+    <!--<bean id="helloBeanPostProcessor" class="com.bing.lan.spring.HelloBeanPostProcessor"/>-->
+
 </beans>
