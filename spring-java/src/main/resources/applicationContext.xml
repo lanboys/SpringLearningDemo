@@ -14,10 +14,20 @@
     <!--    &lt;!&ndash;    设置扫描的包    &ndash;&gt;-->
     <!--    <context:component-scan base-package="com.bing.lan"/>-->
 
-    <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld">
-        <constructor-arg name="hello" value="hello-value"/>
+    <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"
+          parent="parent-id">
+        <!--        <constructor-arg name="hello" value="hello-value"/>-->
         <property name="world" value="world-value"/>
         <meta key="lan" value="bing"/>
-        <meta key="lan1" value="bing1"/>
+    </bean>
+
+    <bean id="parent-id">
+        <property name="world" value="world-xx"/>
+        <property name="hello" value="hello-value"/>
+    </bean>
+
+    <bean id="helloWorld-id-2" class="com.bing.lan.spring.HelloWorld" parent="parent-id">
+        <property name="world" value="world-value-2"/>
+        <meta key="lan-2" value="bing-2"/>
     </bean>
 </beans>

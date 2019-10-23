@@ -2,11 +2,11 @@ package com.bing.lan.spring;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.context.ApplicationContext;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,6 +29,10 @@ public class SpringStartup {
         System.out.println("main(): " + helloWorld);
         HelloWorld helloWorld1 = (HelloWorld) beanFactory.getBean("helloWorld");
         System.out.println("main(): " + helloWorld1);
+        HelloWorld helloWorld2 = (HelloWorld) beanFactory.getBean("helloWorld-id-2");
+        System.out.println("main(): " + helloWorld2);
+        Object parent =  beanFactory.getBean("parent-id");
+        System.out.println("main(): " + parent);
 
         // 手动启动spring容器
         //ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
