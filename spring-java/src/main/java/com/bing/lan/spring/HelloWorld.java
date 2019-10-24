@@ -10,6 +10,7 @@ public class HelloWorld implements InitializingBean, DisposableBean {
 
     private String hello;
     private String world;
+    private Hello xx;
 
     public HelloWorld() {
     }
@@ -21,6 +22,14 @@ public class HelloWorld implements InitializingBean, DisposableBean {
     public HelloWorld(String hello, String world) {
         this.hello = hello;
         this.world = world;
+    }
+
+    public Hello getXx() {
+        return xx;
+    }
+
+    public void setXx(Hello xx) {
+        this.xx = xx;
     }
 
     public String getHello() {

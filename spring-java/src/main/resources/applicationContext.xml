@@ -29,6 +29,9 @@
     <bean id="helloWorld-id-2" class="com.bing.lan.spring.HelloWorld" parent="parent-id">
         <property name="world" value="world-value-2"/>
         <meta key="lan-2" value="bing-2"/>
+        <property name="xx">
+            <bean class="com.bing.lan.spring.Hello"/>
+        </property>
     </bean>
 
     <!--<bean id="helloBeanPostProcessor" class="com.bing.lan.spring.HelloBeanPostProcessor"/>-->
