@@ -21,12 +21,13 @@
         <meta key="lan" value="bing"/>
     </bean>
 
-    <bean id="parent-id">
+    <bean id="parent-id" abstract="true">
         <property name="world" value="world-xx"/>
         <property name="hello" value="hello-value"/>
     </bean>
 
-    <bean id="helloWorld-id-2" class="com.bing.lan.spring.HelloWorld" parent="parent-id">
+    <bean name="${helloWorld.id2},${helloWorld.name2}" class="com.bing.lan.spring.HelloWorld"
+          parent="parent-id">
         <property name="world" value="world-value-2"/>
         <meta key="lan-2" value="bing-2"/>
         <property name="xx">
@@ -42,6 +43,12 @@
             <list>
                 <value>classpath:*.properties</value>
             </list>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="username">root</prop>
+                <prop key="password">admin</prop>
+            </props>
         </property>
     </bean>
 

@@ -59,8 +59,11 @@ public class SpringStartup {
         HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
         System.out.println("main(): " + helloWorld);
 
+        HelloWorld helloWorld2 = (HelloWorld) context.getBean("helloWorld-id-2");
+        System.out.println("main(): " + helloWorld2);
+
         // 要启用注解才生效
-        SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
-        System.out.println("main(): " + springStartup);
+        //SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
+        //System.out.println("main(): " + springStartup);
     }
 }
