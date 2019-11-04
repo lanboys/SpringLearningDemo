@@ -1,12 +1,12 @@
 package com.bing.lan.spring;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,8 +23,8 @@ public class SpringStartup {
     ApplicationContext applicationContext;
 
     public static void main(String[] args) {
-        Resource resource = new ClassPathResource("applicationContext.xml");
-        DefaultListableBeanFactory beanFactory = new XmlBeanFactory(resource);
+        //Resource resource = new ClassPathResource("applicationContext.xml");
+        //DefaultListableBeanFactory beanFactory = new XmlBeanFactory(resource);
 
         //String[] postProcessorNames = beanFactory.getBeanNamesForType(BeanPostProcessor.class, true, false);
         //
@@ -32,25 +32,35 @@ public class SpringStartup {
         //    Object bean = beanFactory.getBean(postProcessorName);
         //    beanFactory.addBeanPostProcessor((BeanPostProcessor) bean);
         //}
-        beanFactory.addBeanPostProcessor(new HelloBeanPostProcessor());
+        //beanFactory.addBeanPostProcessor(new HelloBeanPostProcessor());
 
-        HelloWorld helloWorld = (HelloWorld) beanFactory.getBean("helloWorld");
-        System.out.println("main(): " + helloWorld);
-        HelloWorld helloWorld1 = (HelloWorld) beanFactory.getBean("helloWorld");
-        System.out.println("main(): " + helloWorld1);
-        HelloWorld helloWorld2 = (HelloWorld) beanFactory.getBean("helloWorld-id-2");
-        System.out.println("main(): " + helloWorld2);
-        Object parent = beanFactory.getBean("parent-id");
-        System.out.println("main(): " + parent);
+        //HelloWorld helloWorld = (HelloWorld) beanFactory.getBean("helloWorld");
+        //System.out.println("main(): " + helloWorld);
+        //HelloWorld helloWorld1 = (HelloWorld) beanFactory.getBean("helloWorld");
+        //System.out.println("main(): " + helloWorld1);
+        //HelloWorld helloWorld2 = (HelloWorld) beanFactory.getBean("helloWorld-id-2");
+        //System.out.println("main(): " + helloWorld2);
+        //Object parent = beanFactory.getBean("parent-id");
+        //System.out.println("main(): " + parent);
 
         // 手动启动spring容器
-        //ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        //
-        //HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
-        //System.out.println("main(): " + helloWorld);
-        //
-        //// 要启用注解才生效
-        //SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
-        //System.out.println("main(): " + springStartup);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml") {
+            public void prepareRefresh() {
+                super.prepareRefresh();
+                addBeanFactoryPostProcessor(new BeanFactoryPostProcessor() {
+                    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+                        System.out.println("postProcessBeanFactory(): " + beanFactory);
+                    }
+                });
+            }
+        };
+
+        HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
+        System.out.println("main(): " + helloWorld);
+
+        // 要启用注解才生效
+        SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
+        System.out.println("main(): " + springStartup);
     }
 }

@@ -17,7 +17,7 @@
     <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"
           parent="parent-id">
         <!--        <constructor-arg name="hello" value="hello-value"/>-->
-        <property name="world" value="world-value"/>
+        <property name="world" value="${helloWorld.world}"/>
         <meta key="lan" value="bing"/>
     </bean>
 
@@ -35,5 +35,14 @@
     </bean>
 
     <!--<bean id="helloBeanPostProcessor" class="com.bing.lan.spring.HelloBeanPostProcessor"/>-->
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:*.properties</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>
