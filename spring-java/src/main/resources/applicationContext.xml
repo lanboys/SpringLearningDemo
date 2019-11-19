@@ -26,6 +26,8 @@
         <property name="hello" value="hello-value"/>
     </bean>
 
+    <!-- 此处第一个别名会在PropertyPlaceholderConfigurer替换之前变成id,
+    所以会导致根据 ${helloWorld.id2} 值，获取不到bean -->
     <bean name="${helloWorld.id2},${helloWorld.name2}" class="com.bing.lan.spring.HelloWorld"
           parent="parent-id">
         <property name="world" value="world-value-2"/>
@@ -37,6 +39,8 @@
 
     <!--<bean id="helloBeanPostProcessor" class="com.bing.lan.spring.HelloBeanPostProcessor"/>-->
 
+    <!-- spring 3.1 -->
+    <!-- class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"> -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -48,7 +52,19 @@
             <props>
                 <prop key="username">root</prop>
                 <prop key="password">admin</prop>
+                <prop key="helloWorld.world">123</prop>
             </props>
+        </property>
+    </bean>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- getMessage: 当Locale不存在时，先获取 Locale.getDefault() 的，
+                仍然不存在的话，再获取 local.properties -->
+                <value>p</value>
+            </list>
         </property>
     </bean>
 

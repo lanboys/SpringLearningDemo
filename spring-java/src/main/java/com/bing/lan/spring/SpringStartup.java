@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 /**
  * Created by 蓝兵 on 2019/10/11.
  * https://www.ibm.com/developerworks/cn/java/j-lo-spring-principle/index.html
@@ -55,6 +57,15 @@ public class SpringStartup {
                 });
             }
         };
+
+        String message = context.getMessage("helloWorld.world", null, Locale.US);
+        System.out.println("main(): " + message);
+        message = context.getMessage("helloWorld.world", null, Locale.FRANCE);
+        System.out.println("main(): " + message);
+        message = context.getMessage("helloWorld.world", null, Locale.GERMANY);
+        System.out.println("main(): " + message);
+        message = context.getMessage("helloWorld.world", null, Locale.getDefault());
+        System.out.println("main(): " + message);
 
         HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
         System.out.println("main(): " + helloWorld);
