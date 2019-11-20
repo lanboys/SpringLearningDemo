@@ -10,7 +10,7 @@ public class HelloWorld implements InitializingBean, DisposableBean {
 
     private String hello;
     private String world;
-    private Hello xx;
+    private Hello helloBean;
 
     public HelloWorld() {
     }
@@ -24,12 +24,12 @@ public class HelloWorld implements InitializingBean, DisposableBean {
         this.world = world;
     }
 
-    public Hello getXx() {
-        return xx;
+    public Hello getHelloBean() {
+        return helloBean;
     }
 
-    public void setXx(Hello xx) {
-        this.xx = xx;
+    public void setHelloBean(Hello helloBean) {
+        this.helloBean = helloBean;
     }
 
     public String getHello() {

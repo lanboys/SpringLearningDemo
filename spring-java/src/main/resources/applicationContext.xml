@@ -28,11 +28,11 @@
 
     <!-- 此处第一个别名会在PropertyPlaceholderConfigurer替换之前变成id,
     所以会导致根据 ${helloWorld.id2} 值，获取不到bean -->
-    <bean name="${helloWorld.id2},${helloWorld.name2}" class="com.bing.lan.spring.HelloWorld"
+    <bean class="com.bing.lan.spring.HelloWorld"
           parent="parent-id">
         <property name="world" value="world-value-2"/>
         <meta key="lan-2" value="bing-2"/>
-        <property name="xx">
+        <property name="helloBean">
             <bean class="com.bing.lan.spring.Hello"/>
         </property>
     </bean>
@@ -57,15 +57,5 @@
         </property>
     </bean>
 
-    <bean id="messageSource"
-          class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basenames">
-            <list>
-                <!-- getMessage: 当Locale不存在时，先获取 Locale.getDefault() 的，
-                仍然不存在的话，再获取 local.properties -->
-                <value>p</value>
-            </list>
-        </property>
-    </bean>
 
 </beans>
