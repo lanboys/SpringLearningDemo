@@ -57,5 +57,10 @@
         </property>
     </bean>
 
+    <bean id="factoryBeanUser" class="com.bing.lan.spring.UserFactoryBean">
+        <property name="name" value="lx" />
+        <property name="passWd" value="111" />
+        <property name="age" value="0"/>
+    </bean>
 
 </beans>

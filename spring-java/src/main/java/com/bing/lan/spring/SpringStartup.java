@@ -49,6 +49,9 @@ public class SpringStartup {
             }
         };
 
+        UserFactoryBean factoryBeanUser = (UserFactoryBean) context.getBean("factoryBeanUser");
+        System.out.println("main(): " + factoryBeanUser);
+
         HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
         System.out.println("main(): " + helloWorld);
 
