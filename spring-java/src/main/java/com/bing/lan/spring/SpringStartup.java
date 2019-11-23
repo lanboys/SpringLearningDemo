@@ -1,10 +1,9 @@
 package com.bing.lan.spring;
 
-import org.springframework.beans.BeansException;
+import com.bing.lan.spring.aop.AopService;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -41,19 +40,25 @@ public class SpringStartup {
                 "applicationContext.xml") {
             public void prepareRefresh() {
                 super.prepareRefresh();
-                addBeanFactoryPostProcessor(new BeanFactoryPostProcessor() {
-                    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-                        System.out.println("postProcessBeanFactory(): " + beanFactory);
-                    }
-                });
+                //addBeanFactoryPostProcessor(new BeanFactoryPostProcessor() {
+                //    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+                //        System.out.println("postProcessBeanFactory(): " + beanFactory);
+                //    }
+                //});
             }
         };
 
-        UserFactoryBean factoryBeanUser = (UserFactoryBean) context.getBean("factoryBeanUser");
-        System.out.println("main(): " + factoryBeanUser);
+        //UserFactoryBean factoryBeanUser = (UserFactoryBean) context.getBean("factoryBeanUser");
+        //System.out.println("main(): " + factoryBeanUser);
 
-        HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
-        System.out.println("main(): " + helloWorld);
+        //HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
+        //System.out.println("main(): " + helloWorld);
+
+        System.out.println("main(): -----");
+        AopService aopService = (AopService) context.getBean("aopServiceImpl");
+        aopService.fooA("aop");
+        aopService.setA("setAop");
+        aopService.barA();
 
         // 要启用注解才生效
         //SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");

@@ -14,53 +14,84 @@
     <!--    &lt;!&ndash;    设置扫描的包    &ndash;&gt;-->
     <!--    <context:component-scan base-package="com.bing.lan"/>-->
 
-    <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"
-          parent="parent-id">
-        <!--        <constructor-arg name="hello" value="hello-value"/>-->
-        <property name="world" value="${helloWorld.world}"/>
-        <meta key="lan" value="bing"/>
-    </bean>
+    <!--    <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"-->
+    <!--          parent="parent-id">-->
+    <!--        &lt;!&ndash;        <constructor-arg name="hello" value="hello-value"/>&ndash;&gt;-->
+    <!--        <property name="world" value="${helloWorld.world}"/>-->
+    <!--        <meta key="lan" value="bing"/>-->
+    <!--    </bean>-->
 
-    <bean id="parent-id" abstract="true">
-        <property name="world" value="world-xx"/>
-        <property name="hello" value="hello-value"/>
-    </bean>
+    <!--    <bean id="parent-id" abstract="true">-->
+    <!--        <property name="world" value="world-xx"/>-->
+    <!--        <property name="hello" value="hello-value"/>-->
+    <!--    </bean>-->
 
     <!-- 此处第一个别名会在PropertyPlaceholderConfigurer替换之前变成id,
     所以会导致根据 ${helloWorld.id2} 值，获取不到bean -->
-    <bean class="com.bing.lan.spring.HelloWorld"
-          parent="parent-id">
-        <property name="world" value="world-value-2"/>
-        <meta key="lan-2" value="bing-2"/>
-        <property name="helloBean">
-            <bean class="com.bing.lan.spring.Hello"/>
-        </property>
-    </bean>
+    <!--    <bean class="com.bing.lan.spring.HelloWorld"-->
+    <!--          parent="parent-id">-->
+    <!--        <property name="world" value="world-value-2"/>-->
+    <!--        <meta key="lan-2" value="bing-2"/>-->
+    <!--        <property name="helloBean">-->
+    <!--            <bean class="com.bing.lan.spring.Hello"/>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
     <!--<bean id="helloBeanPostProcessor" class="com.bing.lan.spring.HelloBeanPostProcessor"/>-->
 
     <!-- spring 3.1 -->
     <!-- class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"> -->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
+    <!--    <bean id="propertyConfigurer"-->
+    <!--          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--        <property name="locations">-->
+    <!--            <list>-->
+    <!--                <value>classpath:*.properties</value>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--        <property name="properties">-->
+    <!--            <props>-->
+    <!--                <prop key="username">root</prop>-->
+    <!--                <prop key="password">admin</prop>-->
+    <!--                <prop key="helloWorld.world">123</prop>-->
+    <!--            </props>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="factoryBeanUser" class="com.bing.lan.spring.UserFactoryBean">-->
+    <!--        <property name="name" value="lx"/>-->
+    <!--        <property name="passWd" value="111"/>-->
+    <!--        <property name="age" value="10"/>-->
+    <!--    </bean>-->
+
+    <bean id="aopServiceMethodBeforeAdvice"
+          class="com.bing.lan.spring.aop.AopServiceMethodBeforeAdvice"/>
+    <bean id="aopServiceAfterReturnAdvice"
+          class="com.bing.lan.spring.aop.AopServiceAfterReturnAdvice"/>
+
+    <bean id="regexpMethodPointcutAdvisor"
+          class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="aopServiceAfterReturnAdvice"/>
+        <property name="patterns">
             <list>
-                <value>classpath:*.properties</value>
+                <value>com\..*.foo*.*</value>
             </list>
         </property>
-        <property name="properties">
-            <props>
-                <prop key="username">root</prop>
-                <prop key="password">admin</prop>
-                <prop key="helloWorld.world">123</prop>
-            </props>
+    </bean>
+
+    <!--    <bean id="aopServiceImpl" class="com.bing.lan.spring.aop.AopServiceImpl"/>-->
+    <bean id="aopServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interfaces" value="com.bing.lan.spring.aop.AopService"/>
+        <property name="target">
+            <bean class="com.bing.lan.spring.aop.AopServiceImpl"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>aopServiceMethodBeforeAdvice</value>
+                <!--                    <value>regexpMethodPointcutAdvisor</value>-->
+            </list>
         </property>
     </bean>
 
-    <bean id="factoryBeanUser" class="com.bing.lan.spring.UserFactoryBean">
-        <property name="name" value="lx" />
-        <property name="passWd" value="111" />
-        <property name="age" value="0"/>
-    </bean>
-
+    <!--会扫描所有容器中的advisor, 然后自动为这些advisor要应用的bean生成代理-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 </beans>
