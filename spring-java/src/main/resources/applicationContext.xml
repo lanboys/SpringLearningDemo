@@ -14,53 +14,63 @@
     <!--    &lt;!&ndash;    设置扫描的包    &ndash;&gt;-->
     <!--    <context:component-scan base-package="com.bing.lan"/>-->
 
-    <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"
-          parent="parent-id">
-        <!--        <constructor-arg name="hello" value="hello-value"/>-->
-        <property name="world" value="${helloWorld.world}"/>
-        <meta key="lan" value="bing"/>
+    <!--    <bean id="helloWorld" class="com.bing.lan.spring.HelloWorld" parent="parent-id"-->
+    <!--          scope="prototype">-->
+    <!--        &lt;!&ndash;        <constructor-arg name="hello" value="hello-value"/>&ndash;&gt;-->
+    <!--        <property name="world" value="${helloWorld.world}"/>-->
+    <!--        <meta key="lan" value="bing"/>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="parent-id" abstract="true">-->
+    <!--        <property name="world" value="world-xx"/>-->
+    <!--        <property name="hello" value="hello-value"/>-->
+    <!--    </bean>-->
+
+    <!-- 静态工厂方法 -->
+    <bean id="staticSomeBean" factory-method="staticCreate"
+          class="com.bing.lan.spring.SomeBeanFactory"/>
+
+    <!-- 实例工厂方法 -->
+    <bean id="someBean" factory-method="create" factory-bean="someBeanFactory"/>
+
+    <bean id="someBeanFactory" class="com.bing.lan.spring.SomeBeanFactory"/>
+
+    <bean id="user" class="com.bing.lan.spring.UserFactoryBean">
+        <property name="name" value="lan"/>
+        <property name="passWd" value="a123456789"/>
+        <property name="age" value="10"/>
     </bean>
 
-    <bean id="parent-id" abstract="true">
-        <property name="world" value="world-xx"/>
-        <property name="hello" value="hello-value"/>
-    </bean>
+    <!--    <bean id="hello" class="com.bing.lan.spring.Hello">-->
+    <!--        <property name="helloWorld" ref="helloWorld2"/>-->
+    <!--    </bean>-->
 
-    <!-- 此处第一个别名会在PropertyPlaceholderConfigurer替换之前变成id,
-    所以会导致根据 ${helloWorld.id2} 值，获取不到bean -->
-    <bean class="com.bing.lan.spring.HelloWorld"
-          parent="parent-id">
-        <property name="world" value="world-value-2"/>
-        <meta key="lan-2" value="bing-2"/>
-        <property name="helloBean">
-            <bean class="com.bing.lan.spring.Hello"/>
-        </property>
-    </bean>
+    <!--    &lt;!&ndash; 此处第一个别名会在PropertyPlaceholderConfigurer替换之前变成id,-->
+    <!--    所以会导致根据 ${helloWorld.id2} 值，获取不到bean &ndash;&gt;-->
+    <!--    <bean id="helloWorld2" class="com.bing.lan.spring.HelloWorld">-->
+    <!--        <property name="world" value="world-value-2"/>-->
+    <!--        <meta key="lan-2" value="bing-2"/>-->
+    <!--        <property name="helloBean" ref="hello"/>-->
+    <!--    </bean>-->
 
     <!--<bean id="helloBeanPostProcessor" class="com.bing.lan.spring.HelloBeanPostProcessor"/>-->
 
     <!-- spring 3.1 -->
     <!-- class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"> -->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:*.properties</value>
-            </list>
-        </property>
-        <property name="properties">
-            <props>
-                <prop key="username">root</prop>
-                <prop key="password">admin</prop>
-                <prop key="helloWorld.world">123</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="factoryBeanUser" class="com.bing.lan.spring.UserFactoryBean">
-        <property name="name" value="lx" />
-        <property name="passWd" value="111" />
-        <property name="age" value="0"/>
-    </bean>
+    <!--    <bean id="propertyConfigurer"-->
+    <!--          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--        <property name="locations">-->
+    <!--            <list>-->
+    <!--                <value>classpath:*.properties</value>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--        <property name="properties">-->
+    <!--            <props>-->
+    <!--                <prop key="username">root</prop>-->
+    <!--                <prop key="password">admin</prop>-->
+    <!--                <prop key="helloWorld.world">123</prop>-->
+    <!--            </props>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
 </beans>

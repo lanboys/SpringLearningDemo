@@ -1,12 +1,10 @@
 package com.bing.lan.spring;
 
-import org.springframework.beans.factory.FactoryBean;
-
 /**
- * Created by 蓝兵 on 2019/11/21.
+ * Created by 蓝兵 on 2019/11/27.
  */
 
-public class UserFactoryBean implements FactoryBean<User> {
+public class User {
 
     private String name;
 
@@ -14,27 +12,6 @@ public class UserFactoryBean implements FactoryBean<User> {
 
     private int age;
 
-    public User getObject() throws Exception {
-        if (age <= 0) {
-            throw new Exception("年龄输入错误");
-        }
-        User user = new User();
-        user.setAge(age);
-        user.setPassWd(passWd);
-        user.setName(name);
-
-        return user;
-    }
-
-    public Class<User> getObjectType() {
-        return User.class;
-    }
-
-    public boolean isSingleton() {
-        return false;
-    }
-
-    //------------------------------------
     public String getName() {
         return name;
     }
@@ -61,7 +38,7 @@ public class UserFactoryBean implements FactoryBean<User> {
 
     @Override
     public String toString() {
-        return "UserFactoryBean{" +
+        return "User{" +
                 "name='" + name + '\'' +
                 ", passWd='" + passWd + '\'' +
                 ", age=" + age +

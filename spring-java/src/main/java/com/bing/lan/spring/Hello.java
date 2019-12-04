@@ -7,6 +7,15 @@ package com.bing.lan.spring;
 public class Hello {
 
     private String lan;
+    private HelloWorld helloWorld;
+
+    public HelloWorld getHelloWorld() {
+        return helloWorld;
+    }
+
+    public void setHelloWorld(HelloWorld helloWorld) {
+        this.helloWorld = helloWorld;
+    }
 
     public String getLan() {
         return lan;
