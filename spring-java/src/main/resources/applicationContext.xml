@@ -28,7 +28,7 @@
 
     <!-- 静态工厂方法 -->
     <bean id="staticSomeBean" factory-method="staticCreate"
-          class="com.bing.lan.spring.SomeBeanFactory"/>
+          class="com.bing.lan.spring.SomeBeanFactory" scope="simpleThreadScope"/>
 
     <!-- 实例工厂方法 -->
     <bean id="someBean" factory-method="create" factory-bean="someBeanFactory"/>
@@ -39,6 +39,16 @@
         <property name="name" value="lan"/>
         <property name="passWd" value="a123456789"/>
         <property name="age" value="10"/>
+    </bean>
+
+    <bean id="configurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="simpleThreadScope">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+            </map>
+        </property>
     </bean>
 
     <!--    <bean id="hello" class="com.bing.lan.spring.Hello">-->
@@ -73,4 +83,9 @@
     <!--        </property>-->
     <!--    </bean>-->
 
+<!--    <bean id="methodOverrideTest" class="com.bing.lan.spring.override.MethodOverrideTest">-->
+<!--        <lookup-method name="getPeople" bean="chinese"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="chinese" class="com.bing.lan.spring.override.Chinese"/>-->
 </beans>

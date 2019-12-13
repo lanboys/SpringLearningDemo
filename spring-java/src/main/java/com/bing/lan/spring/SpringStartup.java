@@ -2,14 +2,13 @@ package com.bing.lan.spring;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 /**
  * Created by 蓝兵 on 2019/10/11.
@@ -34,6 +33,7 @@ public class SpringStartup {
         //    beanFactory.addBeanPostProcessor((BeanPostProcessor) bean);
         //}
         beanFactory.addBeanPostProcessor(new HelloBeanPostProcessor());
+        //beanFactory.preInstantiateSingletons();
 
         //https://yq.aliyun.com/articles/639632
 
@@ -41,17 +41,26 @@ public class SpringStartup {
          * allowEagerInit: 控制是否允许 FactoryBean 进行 [初始化] , 以获取 Bean 的 class type
          * 初始化： 可能会完全初始化，并且注册到 BeanFactory, 或者只是简单初始化获取 class type ,最终不注册到 BeanFactory
          */
-        String[] someBeans = beanFactory.getBeanNamesForType(SomeBean.class, true, false);
-        System.out.println("main(): " + Arrays.toString(someBeans));
+        //String[] someBeans = beanFactory.getBeanNamesForType(SomeBean.class, true, false);
+        //System.out.println("main(): " + Arrays.toString(someBeans));
+        //
+        //String[] users = beanFactory.getBeanNamesForType(User.class, true, false);
+        //System.out.println("main(): " + Arrays.toString(users));
+        //
+        //String[] userFactoryBeans = beanFactory.getBeanNamesForType(UserFactoryBean.class, true, false);
+        //System.out.println("main(): " + Arrays.toString(userFactoryBeans));
 
-        String[] users = beanFactory.getBeanNamesForType(User.class, true, false);
-        System.out.println("main(): " + Arrays.toString(users));
-
-        String[] userFactoryBeans = beanFactory.getBeanNamesForType(UserFactoryBean.class, true, false);
-        System.out.println("main(): " + Arrays.toString(userFactoryBeans));
+        CustomScopeConfigurer configurer = (CustomScopeConfigurer) beanFactory.getBean("configurer");
+        configurer.postProcessBeanFactory(beanFactory);
 
         SomeBean someBean = (SomeBean) beanFactory.getBean("someBean");
         System.out.println("main(): " + someBean);
+
+        //MethodOverrideTest methodOverrideTest = (MethodOverrideTest) beanFactory.getBean("methodOverrideTest");
+        //System.out.println("main(): " + methodOverrideTest);
+        //
+        //People people = methodOverrideTest.getPeople();
+        //System.out.println("main(): -- " + people);
 
         SomeBean staticSomeBean = (SomeBean) beanFactory.getBean("staticSomeBean");
         System.out.println("main(): " + staticSomeBean);
