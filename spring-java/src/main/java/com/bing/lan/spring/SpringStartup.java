@@ -31,6 +31,9 @@ public class SpringStartup {
         HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
         System.out.println("main(): " + helloWorld);
 
+        SomeBean someBean = (SomeBean) context.getBean("someBean");
+        System.out.println("main(): " + someBean);
+
         // 要启用注解才生效
         SpringStartup springStartup = (SpringStartup) context.getBean("springStartup");
         System.out.println("main(): " + springStartup);
