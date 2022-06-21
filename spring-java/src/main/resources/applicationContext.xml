@@ -9,10 +9,10 @@
 
     <description>Spring总配置文件</description>
 
-    <!--    &lt;!&ndash;    启用注解    &ndash;&gt;-->
-    <!--    <context:annotation-config/>-->
-    <!--    &lt;!&ndash;    设置扫描的包    &ndash;&gt;-->
-    <!--    <context:component-scan base-package="com.bing.lan"/>-->
+    <!--    启用注解    -->
+    <context:annotation-config/>
+    <!--    设置扫描的包    -->
+    <context:component-scan base-package="com.bing.lan"/>
 
     <bean id="helloWorld-id" name="helloWorld;hello,world" class="com.bing.lan.spring.HelloWorld"/>
 </beans>
